@@ -23,6 +23,8 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
         if !CoreDataManager.shared.income.isEmpty {
             deposits = CoreDataManager.shared.income
         }
+        incomeTableView.delegate = self
+        incomeTableView.dataSource = self
 
     }
     
@@ -44,7 +46,7 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CoreDataManager.shared.income.count
+        return deposits.count
     }
 
     
@@ -55,12 +57,6 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
         let deposit = CoreDataManager.shared.income[indexPath.row]
         
         cell.configure(with: deposit)
-        
-//        let deposit = deposits[indexPath.row]
-        
-        cell.textLabel?.text = deposit.name
-        cell.textLabel?.text = String(deposit.amount)
-        cell.textLabel?.text = (deposit.date?.formatted(date: .abbreviated, time: .complete))
         
 
         return cell
@@ -75,17 +71,17 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let income = CoreDataManager.shared.income[indexPath.row]
+            CoreDataManager.shared.deleteIncome(income: income)
+            DispatchQueue.main.async {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
@@ -115,4 +111,14 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
             destinationVC.deposits = [transactionToSend]
         }
     }
+}
+
+extension IncomeTableViewController: DeleteIncomeDelegate {
+    func deleteIncome(income: Transaction) {
+        guard let index = deposits.firstIndex(of: income) else { return }
+        deposits.remove(at: index)
+        incomeTableView.reloadData()
+    }
+    
+    
 }

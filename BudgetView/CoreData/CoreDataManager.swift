@@ -94,7 +94,9 @@ class CoreDataManager {
     func deleteIncome(income: Transaction) {
         if let moc = income.managedObjectContext {
             moc.delete(income)
+            CoreDataStack.context.delete(income)
             CoreDataStack.saveContext()
+            requestIncome()
         }
     }
 }

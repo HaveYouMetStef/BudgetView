@@ -7,11 +7,18 @@
 
 import UIKit
 
+//MARK: - Protocols
+protocol DeleteIncomeDelegate: AnyObject {
+    func deleteIncome(income: Transaction)
+}
+
 class AddTransactionViewController: UIViewController {
     
     //MARK: - Properties
     var isIncomeType = true
     var selectDate = Date() ?? nil
+    var incomeItem: Transaction?
+    weak var delegate: DeleteIncomeDelegate?
     
     //MARK: - Outlets
     @IBOutlet weak var incomeButton: UIButton!
@@ -37,9 +44,9 @@ class AddTransactionViewController: UIViewController {
               let amount = Float(amountLabel.text!) else { return }
         
         CoreDataManager.shared.createIncome(amount: amount, date: date, name: name, type: type)
-        CoreDataStack.saveContext()
         
         self.navigationController?.popViewController(animated: true)
+        CoreDataStack.saveContext()
     }
     
     @IBAction func incomeCheckBoxButtonTapped(_ sender: Any) {
