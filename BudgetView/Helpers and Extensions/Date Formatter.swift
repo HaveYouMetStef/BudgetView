@@ -10,7 +10,7 @@ import Foundation
 extension DateFormatter {
     static let transactionDate: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateFormat = "MM/dd/YYYY"
         return dateFormatter
     }()
 } // End of extension

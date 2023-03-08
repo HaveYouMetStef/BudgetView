@@ -7,16 +7,16 @@
 
 import UIKit
 
-//MARK: - Protocols
-protocol DeleteIncomeDelegate: AnyObject {
-    func deleteIncome(income: Transaction)
-}
+////MARK: - Protocols
+//protocol DeleteIncomeDelegate: AnyObject {
+//    func deleteIncome(income: Transaction)
+//}
 
 class AddTransactionViewController: UIViewController {
     
     //MARK: - Properties
     var isIncomeType = true
-    var selectDate = Date() ?? nil
+    var selectDate = Date()
     var incomeItem: Transaction?
     weak var delegate: DeleteIncomeDelegate?
     
@@ -34,16 +34,17 @@ class AddTransactionViewController: UIViewController {
         self.incomeButton.imageView?.image = UIImage(systemName: "square")
     }
     
-    
+  
     //MARK: Actions
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let name = nameLabel.text,
               let type = isIncomeType ? "Income" : "Expense",
-              let date = selectDate,
               let amount = Float(amountLabel.text!) else { return }
         
-        CoreDataManager.shared.createIncome(amount: amount, date: date, name: name, type: type)
+        print(type)
+        CoreDataManager.shared.createIncome(amount: amount, date: datePicker.date, name: name, type: type)
+        
         
         self.navigationController?.popViewController(animated: true)
         CoreDataStack.saveContext()

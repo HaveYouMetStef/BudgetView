@@ -7,6 +7,11 @@
 
 import UIKit
 
+//MARK: - Protocols
+protocol DeleteIncomeDelegate: AnyObject {
+    func deleteIncome(income: Transaction)
+}
+
 class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
@@ -30,6 +35,7 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        CoreDataManager.shared.requestIncome()
         incomeTableView.reloadData()
     }
     
@@ -46,7 +52,7 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return deposits.count
+        return CoreDataManager.shared.income.count
     }
 
     
@@ -76,6 +82,7 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
         if editingStyle == .delete {
             let income = CoreDataManager.shared.income[indexPath.row]
             CoreDataManager.shared.deleteIncome(income: income)
+            deposits.remove(at: indexPath.row)
             DispatchQueue.main.async {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }

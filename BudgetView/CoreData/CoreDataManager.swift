@@ -15,6 +15,8 @@ class CoreDataManager {
     var weeklySpend: WeeklySpend?
     
     var income: [Transaction] = []
+    var expense: [Transaction] = []
+    var transactionItems: [Transaction] = []
     
     private lazy var fetchRequest: NSFetchRequest<WeeklySpend> = {
         let request = NSFetchRequest<WeeklySpend>(entityName: "WeeklySpend")
@@ -73,10 +75,15 @@ class CoreDataManager {
     }
     
     func requestIncome() {
-        let fetchedIncome = (try? CoreDataStack.context.fetch(fetchIncome)) ?? []
+        var fetchedIncome = (try? CoreDataStack.context.fetch(fetchIncome)) ?? []
+        for income in fetchedIncome {
+            print(income.type)
+        }
+       fetchedIncome = fetchedIncome.filter({$0.type == "Income"})
         if !fetchedIncome.isEmpty {
             income = fetchedIncome
         }
+//        sectionOffTransactionItems()
     }
     
     func updateIncome(income: Transaction, amount: Float, date: Date, id: String, name: String, type: String) {
@@ -99,5 +106,15 @@ class CoreDataManager {
             requestIncome()
         }
     }
+    
+//    func sectionOffTransactionItems() {
+//        for i in transactionItems {
+//          if i.type == "Income" {
+//                income.append(i)
+//            } else if i.type == "Expense" {
+//                expense.append(i)
+//            }
+//        }
+//    }
 }
 
