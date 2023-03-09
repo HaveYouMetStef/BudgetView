@@ -10,6 +10,8 @@
 		9C3B1A0129B529180023D9BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C9A1C4A29B41272005A7B6A /* Main.storyboard */; };
 		9C3B1A0529B52FF80023D9BD /* IncomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B1A0429B52FF80023D9BD /* IncomeTableViewCell.swift */; };
 		9C3B1A0829B535B40023D9BD /* Date Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B1A0729B535B40023D9BD /* Date Formatter.swift */; };
+		9C3B1A0A29B8F2E60023D9BD /* ExpenseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B1A0929B8F2E60023D9BD /* ExpenseTableViewController.swift */; };
+		9C3B1A0C29B90B110023D9BD /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B1A0B29B90B110023D9BD /* ExpenseTableViewCell.swift */; };
 		9C4A38F529AA96DE008639D6 /* WeeklySpendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4A38F429AA96DE008639D6 /* WeeklySpendViewController.swift */; };
 		9C4A38F729AAB630008639D6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4A38F629AAB630008639D6 /* CoreDataStack.swift */; };
 		9C4A38F929AACEDB008639D6 /* WeeklySpend+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4A38F829AACEDB008639D6 /* WeeklySpend+Convenience.swift */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		9C3B1A0429B52FF80023D9BD /* IncomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeTableViewCell.swift; sourceTree = "<group>"; };
 		9C3B1A0729B535B40023D9BD /* Date Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date Formatter.swift"; sourceTree = "<group>"; };
+		9C3B1A0929B8F2E60023D9BD /* ExpenseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewController.swift; sourceTree = "<group>"; };
+		9C3B1A0B29B90B110023D9BD /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
 		9C4A38F429AA96DE008639D6 /* WeeklySpendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySpendViewController.swift; sourceTree = "<group>"; };
 		9C4A38F629AAB630008639D6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		9C4A38F829AACEDB008639D6 /* WeeklySpend+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeeklySpend+Convenience.swift"; sourceTree = "<group>"; };
@@ -60,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				9C3B1A0429B52FF80023D9BD /* IncomeTableViewCell.swift */,
+				9C3B1A0B29B90B110023D9BD /* ExpenseTableViewCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -90,6 +95,7 @@
 				9C4A38F429AA96DE008639D6 /* WeeklySpendViewController.swift */,
 				9C4A38FF29B168CF008639D6 /* AddTransactionViewController.swift */,
 				9C4A390329B18A8E008639D6 /* IncomeTableViewController.swift */,
+				9C3B1A0929B8F2E60023D9BD /* ExpenseTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -230,6 +236,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C3B1A0C29B90B110023D9BD /* ExpenseTableViewCell.swift in Sources */,
+				9C3B1A0A29B8F2E60023D9BD /* ExpenseTableViewController.swift in Sources */,
 				9C4A38F729AAB630008639D6 /* CoreDataStack.swift in Sources */,
 				9C4A38F529AA96DE008639D6 /* WeeklySpendViewController.swift in Sources */,
 				9C3B1A0529B52FF80023D9BD /* IncomeTableViewCell.swift in Sources */,

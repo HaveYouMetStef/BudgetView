@@ -7,10 +7,6 @@
 
 import UIKit
 
-//MARK: - Protocols
-protocol DeleteIncomeDelegate: AnyObject {
-    func deleteIncome(income: Transaction)
-}
 
 class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -18,16 +14,13 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
     //MARK: - Outlets
     @IBOutlet weak var incomeTableView: UITableView!
     
-    //MARK: - properties
-    var deposits: [Transaction] = []
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         CoreDataManager.shared.requestIncome()
-        if !CoreDataManager.shared.income.isEmpty {
-            deposits = CoreDataManager.shared.income
-        }
+
         incomeTableView.delegate = self
         incomeTableView.dataSource = self
 
@@ -82,10 +75,17 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
         if editingStyle == .delete {
             let income = CoreDataManager.shared.income[indexPath.row]
             CoreDataManager.shared.deleteIncome(income: income)
-            deposits.remove(at: indexPath.row)
-            DispatchQueue.main.async {
+            
+            let newCount = CoreDataManager.shared.income.count
+            if newCount == 0 {
+                tableView.reloadData()
+            } else {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
+            //            CoreDataManager.shared.requestIncome()
+            //            DispatchQueue.main.async {
+            //                tableView.deleteRows(at: [indexPath], with: .fade)
+            //            }
         }
     }
     
@@ -110,22 +110,14 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toTransactionVC" {
+        if segue.identifier == "toEditIncomeTransaction" {
             guard let indexPath = incomeTableView.indexPathForSelectedRow,
-                  let destinationVC = segue.destination as? IncomeTableViewController else { return }
+                  let destinationVC = segue.destination as? AddTransactionViewController else { return }
             
             let transactionToSend = CoreDataManager.shared.income[indexPath.row]
-            destinationVC.deposits = [transactionToSend]
+            
+            destinationVC.editTransaction = transactionToSend
         }
     }
 }
 
-extension IncomeTableViewController: DeleteIncomeDelegate {
-    func deleteIncome(income: Transaction) {
-        guard let index = deposits.firstIndex(of: income) else { return }
-        deposits.remove(at: index)
-        incomeTableView.reloadData()
-    }
-    
-    
-}

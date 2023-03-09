@@ -7,18 +7,15 @@
 
 import UIKit
 
-////MARK: - Protocols
-//protocol DeleteIncomeDelegate: AnyObject {
-//    func deleteIncome(income: Transaction)
-//}
+
 
 class AddTransactionViewController: UIViewController {
     
     //MARK: - Properties
-    var isIncomeType = true
+    var isIncomeType = false
     var selectDate = Date()
     var incomeItem: Transaction?
-    weak var delegate: DeleteIncomeDelegate?
+    var editTransaction: Transaction?
     
     //MARK: - Outlets
     @IBOutlet weak var incomeButton: UIButton!
@@ -32,6 +29,8 @@ class AddTransactionViewController: UIViewController {
         super.viewDidLoad()
 
         self.incomeButton.imageView?.image = UIImage(systemName: "square")
+        
+        updateView()
     }
     
   
@@ -43,7 +42,13 @@ class AddTransactionViewController: UIViewController {
               let amount = Float(amountLabel.text!) else { return }
         
         print(type)
-        CoreDataManager.shared.createIncome(amount: amount, date: datePicker.date, name: name, type: type)
+        
+        //update transaction
+        if let transaction = editTransaction {
+            CoreDataManager.shared.updateIncome(income: transaction, amount: amount, name: name, type: type, date: datePicker.date)
+        } else {
+            CoreDataManager.shared.createIncome(amount: amount, date: datePicker.date, name: name, type: type)
+        }
         
         
         self.navigationController?.popViewController(animated: true)
@@ -52,9 +57,7 @@ class AddTransactionViewController: UIViewController {
     
     @IBAction func incomeCheckBoxButtonTapped(_ sender: Any) {
         
-        self.expenseButton.imageView?.image = UIImage(systemName: "square")
-        self.incomeButton.imageView?.image = UIImage(systemName: "checkmark.square")
-        self.isIncomeType = true
+        updateForIncome()
     }
     
     @IBAction func expenseCheckBoxButtonTapped(_ sender: Any) {
@@ -62,6 +65,23 @@ class AddTransactionViewController: UIViewController {
         self.expenseButton.imageView?.image = UIImage(systemName: "checkmark.square")
         self.incomeButton.imageView?.image = UIImage(systemName: "square")
         self.isIncomeType = false
+    }
+    
+    func updateView() {
+        guard let transaction = editTransaction else { return }
+        nameLabel.text = transaction.name
+        if transaction.type == "Income" {
+            updateForIncome()
+            
+        }
+        amountLabel.text = String(transaction.amount)
+        datePicker.date = transaction.date ?? Date()
+    }
+    
+    func updateForIncome() {
+        self.expenseButton.imageView?.image = UIImage(systemName: "square")
+        self.incomeButton.imageView?.image = UIImage(systemName: "checkmark.square")
+        self.isIncomeType = true
     }
     
     

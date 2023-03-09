@@ -30,6 +30,12 @@ class CoreDataManager {
         return request
     }()
     
+    private lazy var fetchExpense: NSFetchRequest<Transaction> = {
+        let request = NSFetchRequest<Transaction>(entityName: "Transaction")
+        request.predicate = NSPredicate(value: true)
+        return request
+    }()
+    
     //MARK: - CRUD WeeklySpend Functions
     
     func createWeeklySpendBudget(weeklyIncome: Float, taxes: Float, expenses: Float, deductions: Float, weeklySavings: Float, contributions: Float) {
@@ -80,31 +86,41 @@ class CoreDataManager {
             print(income.type)
         }
        fetchedIncome = fetchedIncome.filter({$0.type == "Income"})
-        if !fetchedIncome.isEmpty {
             income = fetchedIncome
-        }
+        
 //        sectionOffTransactionItems()
     }
     
-    func updateIncome(income: Transaction, amount: Float, date: Date, id: String, name: String, type: String) {
+//    func updateIncome(income: Transaction, amount: Float, date: Date, id: String, name: String, type: String) {
+//        
+//        income.amount = amount
+//        income.date = date
+//        income.id = id
+//        income.name = name
+//        income.type = type
+//        
+//        CoreDataStack.saveContext()
+//        
+//    }
+    
+    func updateIncome(income: Transaction, amount: Float, name: String, type: String, date: Date) {
         
         income.amount = amount
-        income.date = date
-        income.id = id
         income.name = name
         income.type = type
+        income.date = date
         
         CoreDataStack.saveContext()
         
     }
     
+    
     func deleteIncome(income: Transaction) {
-        if let moc = income.managedObjectContext {
-            moc.delete(income)
+
             CoreDataStack.context.delete(income)
             CoreDataStack.saveContext()
             requestIncome()
-        }
+        
     }
     
 //    func sectionOffTransactionItems() {
@@ -116,5 +132,44 @@ class CoreDataManager {
 //            }
 //        }
 //    }
+    
+    //MARK: - CRUD Expense Transaction Functions
+    
+    func createExpense(amount: Float, date: Date, name: String, type: String) {
+        let monthlyExpense = Transaction(amount: amount, date: date, name: name, type: type)
+        expense.append(monthlyExpense)
+        CoreDataStack.saveContext()
+        
+    }
+    
+    func requestExpense() {
+        var fetchedExpense = (try? CoreDataStack.context.fetch(fetchExpense)) ?? []
+        for expense in fetchedExpense {
+            print(expense.type)
+        }
+        fetchedExpense = fetchedExpense.filter({$0.type == "Expense"})
+            expense = fetchedExpense
+
+    }
+    
+    func updateExpense(expense: Transaction, amount: Float, date: Date, id: String, name: String, type: String) {
+        
+        expense.amount = amount
+        expense.date = date
+        expense.id = id
+        expense.name = name
+        expense.type = type
+        
+        CoreDataStack.saveContext()
+    }
+    
+    func deleteExpense(expense: Transaction) {
+        if let moc = expense.managedObjectContext {
+            moc.delete(expense)
+            CoreDataStack.context.delete(expense)
+            CoreDataStack.saveContext()
+            requestExpense()
+        }
+    }
 }
 
