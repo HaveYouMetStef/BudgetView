@@ -21,7 +21,7 @@ class IncomeTableViewCell: UITableViewCell {
             return
         }
         dateLabel.text = DateFormatter.transactionDate.string(from: transaction.date ?? Date())
-        amountLabel.text = String(transaction.amount)
+        amountLabel.text = "$" + String(format: "%.2f", transaction.amount)
     }
     
 

@@ -17,7 +17,7 @@ class ExpenseTableViewCell: UITableViewCell {
         expenseNameLabel.text = transaction.name
         guard let date = transaction.date else { return }
         expenseDateLabel.text = DateFormatter.transactionDate.string(from: transaction.date ?? Date())
-        expenseAmountLabel.text = String(transaction.amount)
+        expenseAmountLabel.text = "$" + String(format: "%.2f", transaction.amount)
     }
 
 }

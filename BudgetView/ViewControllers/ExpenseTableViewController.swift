@@ -7,15 +7,13 @@
 
 import UIKit
 
-//MARK: - Protocols
-protocol DeleteExpenseDelegate: AnyObject {
-    func deleteExpense(expense: Transaction)
-}
 
 class ExpenseTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
 
     //MARK: - Outlets
     @IBOutlet weak var expenseTableView: UITableView!
+    @IBOutlet weak var weeklyExpensesButton: UIButton!
+    @IBOutlet weak var biweeklyExpensesButton: UIButton!
     
     //MARK: - Properties
     
@@ -37,7 +35,38 @@ class ExpenseTableViewController: UIViewController, UITableViewDelegate,UITableV
         CoreDataManager.shared.requestExpense()
         expenseTableView.reloadData()
     }
-
+    
+    //MARK: - Actions
+    
+    @IBAction func weeklyExpensesButtonTapped(_ sender: Any) {
+        let calculateWeeklyExpenses = CoreDataManager.shared.calculateWeeklyExpenses()
+        let formatted = String(format: "%.2f", calculateWeeklyExpenses)
+        
+        let vc = UIAlertController(title: "Calculated", message: "This is your weekly total expenses amount $\(formatted)", preferredStyle: .actionSheet)
+        let okayAction = UIAlertAction(title: "Okay", style: .default) { _ in
+            print("Okay option selected by user on the calculate weekly expenses button")
+        }
+        
+        [okayAction].forEach{vc.addAction($0)}
+        
+        present(vc, animated: true)
+        
+    }
+    
+    @IBAction func biweeklyExpensesButtonTapped(_ sender: Any) {
+        let calculateBiweeklyExpenses = CoreDataManager.shared.calculateBiweeklyExpenses()
+        let formatted = String(format: "%.2f", calculateBiweeklyExpenses)
+        let vc = UIAlertController(title: "Calculated", message: "This is your biweekly total expenses amount $\(formatted)", preferredStyle: .actionSheet)
+        let okayAction = UIAlertAction(title: "Okay", style: .default) { _ in
+            print("Okay option selected by user on the calculate weekly expenses button")
+        }
+        
+        [okayAction].forEach{vc.addAction($0)}
+        
+        present(vc, animated: true)
+    }
+    
+    
     // MARK: - Table view data source
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {
@@ -99,15 +128,23 @@ class ExpenseTableViewController: UIViewController, UITableViewDelegate,UITableV
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toEditExpenseTransaction" {
+            guard let indexPath = expenseTableView.indexPathForSelectedRow,
+                  let destinationVC = segue.destination as? AddTransactionViewController else { return }
+            
+            let transactionToSend = CoreDataManager.shared.expense[indexPath.row]
+            
+            destinationVC.editTransaction = transactionToSend
+        }
+        
+
     }
-    */
+    
 
 }//End of Class
 

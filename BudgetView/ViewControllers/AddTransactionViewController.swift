@@ -61,10 +61,7 @@ class AddTransactionViewController: UIViewController {
     }
     
     @IBAction func expenseCheckBoxButtonTapped(_ sender: Any) {
-        
-        self.expenseButton.imageView?.image = UIImage(systemName: "checkmark.square")
-        self.incomeButton.imageView?.image = UIImage(systemName: "square")
-        self.isIncomeType = false
+      updateForExpense()
     }
     
     func updateView() {
@@ -82,6 +79,12 @@ class AddTransactionViewController: UIViewController {
         self.expenseButton.imageView?.image = UIImage(systemName: "square")
         self.incomeButton.imageView?.image = UIImage(systemName: "checkmark.square")
         self.isIncomeType = true
+    }
+    
+    func updateForExpense() {
+        self.expenseButton.imageView?.image = UIImage(systemName: "checkmark.square")
+        self.incomeButton.imageView?.image = UIImage(systemName: "square")
+        self.isIncomeType = false
     }
     
     

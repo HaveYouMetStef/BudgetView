@@ -152,11 +152,10 @@ class CoreDataManager {
 
     }
     
-    func updateExpense(expense: Transaction, amount: Float, date: Date, id: String, name: String, type: String) {
+    func updateExpense(expense: Transaction, amount: Float, date: Date, name: String, type: String) {
         
         expense.amount = amount
         expense.date = date
-        expense.id = id
         expense.name = name
         expense.type = type
         
@@ -170,6 +169,35 @@ class CoreDataManager {
             CoreDataStack.saveContext()
             requestExpense()
         }
+    }
+    
+    func totalIncome() -> Float {
+        var total: Float = 0
+        for incomeTransaction in income {
+            total += incomeTransaction.amount
+        }
+        return total
+    }
+    
+    func totalMonthlyExpenses() -> Float {
+        var total: Float = 0
+        for expenseTransaction in expense {
+            total += expenseTransaction.amount
+        }
+        print(total)
+        return total
+    }
+    
+    func calculateWeeklyExpenses() -> Float {
+        var calculatedWeeklyExpenses = (totalMonthlyExpenses() * 12) / 52
+        print(calculatedWeeklyExpenses)
+        return calculatedWeeklyExpenses
+    }
+    
+    func calculateBiweeklyExpenses() -> Float {
+        var calculatedBiweeklyExpenses = (totalMonthlyExpenses() * 12) / 26
+        print(calculatedBiweeklyExpenses)
+        return calculatedBiweeklyExpenses
     }
 }
 

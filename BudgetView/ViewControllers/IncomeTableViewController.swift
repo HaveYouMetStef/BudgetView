@@ -61,6 +61,27 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = UIView()
+        footer.backgroundColor = UIColor(red: 59/255, green: 159/255, blue: 111/255, alpha: 1.0)
+        let titleLabel = UILabel(frame: CGRect(x: 15, y: 10, width: 350, height: 30))
+        let amountTotal = UILabel(frame: CGRect(x: 320, y: 10, width: 350, height: 30))
+        titleLabel.textColor = .white
+        titleLabel.text = "Monthly Income"
+//        titleLabel.font = UIFont(name: <#T##String#>, size: <#T##CGFloat#>)
+        footer.addSubview(titleLabel)
+        
+        amountTotal.textColor = .white
+        amountTotal.text = "$" + String(format: "%.2f", CoreDataManager.shared.totalIncome())
+        footer.addSubview(amountTotal)
+        return footer
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -75,13 +96,8 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
         if editingStyle == .delete {
             let income = CoreDataManager.shared.income[indexPath.row]
             CoreDataManager.shared.deleteIncome(income: income)
+            tableView.reloadData()
             
-            let newCount = CoreDataManager.shared.income.count
-            if newCount == 0 {
-                tableView.reloadData()
-            } else {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
             //            CoreDataManager.shared.requestIncome()
             //            DispatchQueue.main.async {
             //                tableView.deleteRows(at: [indexPath], with: .fade)
