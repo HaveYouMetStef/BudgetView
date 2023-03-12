@@ -41,7 +41,22 @@ class APICaller {
                         )
         }
     
-    //MARK: = Private
+    /* Get stock data
+     -Parameters:
+        symbol:
+        completion:
+     */
+    public func stockPrice(
+        for symbol: String,
+        completion: @escaping (Result<QuoteServerModel, Error>) -> Void
+    ) {
+        request(url: url(for: .stockPrice,
+                         queryParams: ["symbol": symbol]),
+                expecting: QuoteServerModel.self,
+                completion: completion)
+    }
+    
+    //MARK: - Private
     
     ///API Endpoints
     private enum Endpoints: String {
@@ -70,6 +85,7 @@ class APICaller {
         
         //Converting your query items to suffix string
         urlString += "?" + queryItems.map { "\($0.name)=\($0.value ?? "")"}.joined(separator: "&")
+        print(urlString)
         return URL(string: urlString)
     }
     

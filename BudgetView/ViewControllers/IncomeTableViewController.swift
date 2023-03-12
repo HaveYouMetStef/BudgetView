@@ -65,7 +65,7 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
         let footer = UIView()
         footer.backgroundColor = UIColor(red: 59/255, green: 159/255, blue: 111/255, alpha: 1.0)
         let titleLabel = UILabel(frame: CGRect(x: 15, y: 10, width: 350, height: 30))
-        let amountTotal = UILabel(frame: CGRect(x: 320, y: 10, width: 350, height: 30))
+        let amountTotal = UILabel(frame: CGRect(x: 315, y: 10, width: 350, height: 30))
         titleLabel.textColor = .white
         titleLabel.text = "Monthly Income"
 //        titleLabel.font = UIFont(name: <#T##String#>, size: <#T##CGFloat#>)

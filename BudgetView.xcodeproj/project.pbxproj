@@ -15,6 +15,8 @@
 		9C3B1A0F29BCFFBE0023D9BD /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B1A0E29BCFFBE0023D9BD /* NetworkController.swift */; };
 		9C3B1A1129BD23AC0023D9BD /* SearchServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B1A1029BD23AC0023D9BD /* SearchServerModel.swift */; };
 		9C3B1A1329BD29770023D9BD /* QuoteServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B1A1229BD29770023D9BD /* QuoteServerModel.swift */; };
+		9C3B1A1529BE67230023D9BD /* StockFinderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B1A1429BE67230023D9BD /* StockFinderTableViewCell.swift */; };
+		9C3B1A1729BE79330023D9BD /* StockTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B1A1629BE79330023D9BD /* StockTrackerViewController.swift */; };
 		9C4A38F529AA96DE008639D6 /* WeeklySpendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4A38F429AA96DE008639D6 /* WeeklySpendViewController.swift */; };
 		9C4A38F729AAB630008639D6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4A38F629AAB630008639D6 /* CoreDataStack.swift */; };
 		9C4A38F929AACEDB008639D6 /* WeeklySpend+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4A38F829AACEDB008639D6 /* WeeklySpend+Convenience.swift */; };
@@ -37,6 +39,8 @@
 		9C3B1A0E29BCFFBE0023D9BD /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		9C3B1A1029BD23AC0023D9BD /* SearchServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServerModel.swift; sourceTree = "<group>"; };
 		9C3B1A1229BD29770023D9BD /* QuoteServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteServerModel.swift; sourceTree = "<group>"; };
+		9C3B1A1429BE67230023D9BD /* StockFinderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockFinderTableViewCell.swift; sourceTree = "<group>"; };
+		9C3B1A1629BE79330023D9BD /* StockTrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTrackerViewController.swift; sourceTree = "<group>"; };
 		9C4A38F429AA96DE008639D6 /* WeeklySpendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySpendViewController.swift; sourceTree = "<group>"; };
 		9C4A38F629AAB630008639D6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		9C4A38F829AACEDB008639D6 /* WeeklySpend+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeeklySpend+Convenience.swift"; sourceTree = "<group>"; };
@@ -71,6 +75,7 @@
 			children = (
 				9C3B1A0429B52FF80023D9BD /* IncomeTableViewCell.swift */,
 				9C3B1A0B29B90B110023D9BD /* ExpenseTableViewCell.swift */,
+				9C3B1A1429BE67230023D9BD /* StockFinderTableViewCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 				9C4A38FF29B168CF008639D6 /* AddTransactionViewController.swift */,
 				9C4A390329B18A8E008639D6 /* IncomeTableViewController.swift */,
 				9C3B1A0929B8F2E60023D9BD /* ExpenseTableViewController.swift */,
+				9C3B1A1629BE79330023D9BD /* StockTrackerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -263,7 +269,9 @@
 				9C3B1A1329BD29770023D9BD /* QuoteServerModel.swift in Sources */,
 				9C3B1A0829B535B40023D9BD /* Date Formatter.swift in Sources */,
 				9C3B1A1129BD23AC0023D9BD /* SearchServerModel.swift in Sources */,
+				9C3B1A1529BE67230023D9BD /* StockFinderTableViewCell.swift in Sources */,
 				9C4A38F929AACEDB008639D6 /* WeeklySpend+Convenience.swift in Sources */,
+				9C3B1A1729BE79330023D9BD /* StockTrackerViewController.swift in Sources */,
 				9CD06FAE299869A00017EF5F /* AppDelegate.swift in Sources */,
 				9CD06FB0299869A00017EF5F /* SceneDelegate.swift in Sources */,
 				9C4A390029B168CF008639D6 /* AddTransactionViewController.swift in Sources */,
