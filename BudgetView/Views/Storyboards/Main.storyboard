@@ -220,11 +220,11 @@
             </objects>
             <point key="canvasLocation" x="291" y="4"/>
         </scene>
-        <!--Item-->
+        <!--Income-->
         <scene sceneID="PWk-NZ-4te">
             <objects>
                 <navigationController id="p8r-Cj-Cjc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="oZ7-oK-lwv"/>
+                    <tabBarItem key="tabBarItem" title="Income" id="oZ7-oK-lwv"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zcY-HO-kTc">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -257,11 +257,11 @@
             </objects>
             <point key="canvasLocation" x="969" y="-2359"/>
         </scene>
-        <!--Item-->
+        <!--Expenses-->
         <scene sceneID="Lse-Wk-GEc">
             <objects>
                 <navigationController id="UHl-Jp-qcz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="dyw-TQ-FAB"/>
+                    <tabBarItem key="tabBarItem" title="Expenses" id="dyw-TQ-FAB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rS0-kW-Lag">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -274,11 +274,11 @@
             </objects>
             <point key="canvasLocation" x="621" y="-1530"/>
         </scene>
-        <!--Item-->
+        <!--Budget-->
         <scene sceneID="wcF-bl-8vw">
             <objects>
                 <navigationController id="aBp-Gn-1ew" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="6SH-Ja-2bE"/>
+                    <tabBarItem key="tabBarItem" title="Budget" id="6SH-Ja-2bE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uXS-UQ-ooy">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -291,11 +291,11 @@
             </objects>
             <point key="canvasLocation" x="1273" y="-1530"/>
         </scene>
-        <!--Item-->
+        <!--Stocks-->
         <scene sceneID="3Wr-pg-azJ">
             <objects>
                 <navigationController id="B8g-i0-IjC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="kei-Cy-JSr"/>
+                    <tabBarItem key="tabBarItem" title="Stocks" id="kei-Cy-JSr"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZZb-T0-8VY">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -616,7 +616,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" ambiguous="YES" placeholder="Find your favorite stock..." translatesAutoresizingMaskIntoConstraints="NO" id="ZsT-QC-xbt">
+                            <searchBar contentMode="redraw" placeholder="Find your favorite stock..." translatesAutoresizingMaskIntoConstraints="NO" id="ZsT-QC-xbt">
                                 <rect key="frame" x="0.0" y="103" width="393" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="WRz-eh-rpt"/>
@@ -626,18 +626,11 @@
                                     <outlet property="delegate" destination="KOn-0O-Dch" id="PLv-Yi-17e"/>
                                 </connections>
                             </searchBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnr-8F-YEm">
-                                <rect key="frame" x="0.0" y="208.33333333333334" width="393" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RSi-BG-1U5">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RSi-BG-1U5">
                                 <rect key="frame" x="0.0" y="147" width="393" height="512"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="139" id="20J-sQ-w0J" customClass="StockFinderTableViewCell" customModule="BudgetView" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="stockFinderCell" rowHeight="139" id="20J-sQ-w0J" customClass="StockFinderTableViewCell" customModule="BudgetView" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="139"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="20J-sQ-w0J" id="Plf-nR-0ZK">
@@ -647,14 +640,17 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="xk8-aP-qSg">
                                                     <rect key="frame" x="0.0" y="16" width="150" height="107"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(symbol)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9db-P5-Ubu">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(symbol)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9db-P5-Ubu">
                                                             <rect key="frame" x="0.0" y="0.0" width="150" height="63.666666666666664"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(company name)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUc-bz-jb5">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(company name)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUc-bz-jb5">
                                                             <rect key="frame" x="0.0" y="86.666666666666671" width="150" height="20.333333333333329"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20.333333333333329" id="qyg-7t-UgE"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -692,9 +688,14 @@
                         <viewLayoutGuide key="safeArea" id="roa-Lr-nmH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="ZsT-QC-xbt" firstAttribute="leading" secondItem="roa-Lr-nmH" secondAttribute="leading" id="H9t-sd-Sfc"/>
                             <constraint firstItem="ZsT-QC-xbt" firstAttribute="top" secondItem="roa-Lr-nmH" secondAttribute="top" id="L8a-KO-btW"/>
-                            <constraint firstItem="cnr-8F-YEm" firstAttribute="leading" secondItem="roa-Lr-nmH" secondAttribute="leading" id="aeu-Be-97c"/>
-                            <constraint firstItem="roa-Lr-nmH" firstAttribute="trailing" secondItem="cnr-8F-YEm" secondAttribute="trailing" id="qNY-pX-12o"/>
+                            <constraint firstItem="ZsT-QC-xbt" firstAttribute="top" secondItem="roa-Lr-nmH" secondAttribute="top" id="Qpn-9G-DtV"/>
+                            <constraint firstItem="RSi-BG-1U5" firstAttribute="leading" secondItem="ZsT-QC-xbt" secondAttribute="leading" id="W3a-zr-XEE"/>
+                            <constraint firstItem="roa-Lr-nmH" firstAttribute="bottom" secondItem="RSi-BG-1U5" secondAttribute="bottom" constant="110" id="fQ7-X3-plj"/>
+                            <constraint firstItem="ZsT-QC-xbt" firstAttribute="trailing" secondItem="roa-Lr-nmH" secondAttribute="trailing" id="lyG-yX-Ejg"/>
+                            <constraint firstItem="RSi-BG-1U5" firstAttribute="top" secondItem="ZsT-QC-xbt" secondAttribute="bottom" id="teE-ZX-GFa"/>
+                            <constraint firstItem="RSi-BG-1U5" firstAttribute="trailing" secondItem="ZsT-QC-xbt" secondAttribute="trailing" id="tpN-yz-eBI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Stock Tracker" id="ak1-w2-j3y"/>
@@ -709,7 +710,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KO2-9z-UK2"/>
+        <segue reference="owH-Nd-tUe"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>

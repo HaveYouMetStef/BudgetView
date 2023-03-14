@@ -31,6 +31,7 @@ class AddTransactionViewController: UIViewController {
         self.incomeButton.imageView?.image = UIImage(systemName: "square")
         
         updateView()
+        hideKeyboard()
     }
     
   
@@ -85,6 +86,19 @@ class AddTransactionViewController: UIViewController {
         self.expenseButton.imageView?.image = UIImage(systemName: "checkmark.square")
         self.incomeButton.imageView?.image = UIImage(systemName: "square")
         self.isIncomeType = false
+    }
+    
+    func hideKeyboard() {
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self, action: #selector(dismissMyKeyboard))
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissMyKeyboard() {
+        
+        view.endEditing(true)
     }
     
     

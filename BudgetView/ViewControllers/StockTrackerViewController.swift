@@ -7,7 +7,8 @@
 
 import UIKit
 
-class StockTrackerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class StockTrackerViewController: UIViewController {
+    
 
     
     
@@ -21,18 +22,38 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
 
         stockSearchBar.delegate = self
-        stockTableView.dataSource = self
-        stockTableView.delegate = self
+//        stockTableView.dataSource = self
+//        stockTableView.delegate = self
+        
+        hideKeyboard()
     }
     
     //MARK: - Methods
-    func fetchStockAndUpdateViews(stock: SearchServerModel) {
+    //****Review with Chris****
+    func fetchStockAndUpdateViews(stock: SearchServerModel, price: QuoteServerModel, tableView: UITableView) {
         APICaller.shared.search(query: stock.description) { result in
             DispatchQueue.main.async {
                 switch result {
                     
-                case .success(let stock):
-                    self.StockFinderTableViewCell.symbolLabel
+                case .success(let searchResults):
+                    let searchResult = searchResults
+                    
+                    APICaller.shared.search(query: stock.symbol) { result in
+                        DispatchQueue.main.async {
+                            switch result {
+                                
+                            case .success(let stockPrice):
+                                let cell = tableView.dequeueReusableCell(withIdentifier: "stockFinderCell") as! StockFinderTableViewCell
+                                cell.configure(with: searchResult, stockPrice: price)
+                            case .failure(let error):
+                                
+                                print("Failed to fetch stock price: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                case .failure(let errror):
+                    
+                    print("Failed to search for stocks: \(errror.localizedDescription)")
                 }
             }
         }
@@ -41,12 +62,28 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
     
     //MARK: - Table View Data Source
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+    //***Review with Chris**
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//
+//    }
+//
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//    }
+    
+    //MARK: - Methods
+    func hideKeyboard() {
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self, action: #selector(dismissMyKeyboard))
+        
+        view.addGestureRecognizer(tap)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+    @objc func dismissMyKeyboard() {
+        
+        view.endEditing(true)
     }
 
     /*
@@ -68,15 +105,15 @@ extension StockTrackerViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
-        
-        APICaller.shared.search(query: searchText) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let stock):
-                    self.
-                }
-            }
-        }
-        
+
+//        APICaller.shared.search(query: searchText) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .success(let stock):
+//                    self.fetchStockAndUpdateViews(stock: stock, price: , tableView: <#T##UITableView#>)
+//                }
+//            }
+//        }
+
     }
 }

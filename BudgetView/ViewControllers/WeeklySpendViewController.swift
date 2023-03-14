@@ -33,6 +33,8 @@ class WeeklySpendViewController: UIViewController {
         if let fetchedWeeklySpend = CoreDataManager.shared.weeklySpend {
             weeklySpend = fetchedWeeklySpend
             updateViews()
+            
+            hideKeyboard()
         }
         }
     
@@ -128,6 +130,19 @@ class WeeklySpendViewController: UIViewController {
         deductionsTextField.text = String(weeklySpend.deductions)
         weeklySavingsTextField.text = String(weeklySpend.weeklySavings)
         contributionsTextField.text = String(weeklySpend.contributions)
+    }
+    
+    func hideKeyboard() {
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self, action: #selector(dismissMyKeyboard))
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissMyKeyboard() {
+        
+        view.endEditing(true)
     }
 }
 
