@@ -31,12 +31,13 @@ class APICaller {
      -completion: Callback for result */
     public func search(
         query: String,
-        completion: @escaping (Result<SearchServerModel, Error>) -> Void) {
+        completion: @escaping (Result<SearchResponse, Error>) -> Void) {
                         request(
                             url: url(
-                                for: .search
+                                for: .search,
+                                queryParams: ["q" : "Apple"]
                             ),
-                            expecting: SearchServerModel.self,
+                            expecting: SearchResponse.self,
                             completion: completion
                         )
         }

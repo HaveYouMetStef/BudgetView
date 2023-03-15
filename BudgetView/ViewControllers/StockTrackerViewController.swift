@@ -24,33 +24,35 @@ class StockTrackerViewController: UIViewController {
         stockSearchBar.delegate = self
 //        stockTableView.dataSource = self
 //        stockTableView.delegate = self
+        fetchStockAndUpdateViews(stock: "Apple")
         
         hideKeyboard()
     }
     
     //MARK: - Methods
     //****Review with Chris****
-    func fetchStockAndUpdateViews(stock: SearchServerModel, price: QuoteServerModel, tableView: UITableView) {
-        APICaller.shared.search(query: stock.description) { result in
+    func fetchStockAndUpdateViews(stock: String) {
+        APICaller.shared.search(query: stock) { result in
             DispatchQueue.main.async {
                 switch result {
                     
                 case .success(let searchResults):
                     let searchResult = searchResults
+                    print(searchResult)
                     
-                    APICaller.shared.search(query: stock.symbol) { result in
-                        DispatchQueue.main.async {
-                            switch result {
-                                
-                            case .success(let stockPrice):
-                                let cell = tableView.dequeueReusableCell(withIdentifier: "stockFinderCell") as! StockFinderTableViewCell
-                                cell.configure(with: searchResult, stockPrice: price)
-                            case .failure(let error):
-                                
-                                print("Failed to fetch stock price: \(error.localizedDescription)")
-                            }
-                        }
-                    }
+//                    APICaller.shared.search(query: stock.symbol) { result in
+//                        DispatchQueue.main.async {
+//                            switch result {
+//
+//                            case .success(let stockPrice):
+//                                let cell = tableView.dequeueReusableCell(withIdentifier: "stockFinderCell") as! StockFinderTableViewCell
+//                                cell.configure(with: searchResult, stockPrice: price)
+//                            case .failure(let error):
+//
+//                                print("Failed to fetch stock price: \(error.localizedDescription)")
+//                            }
+//                        }
+//                    }
                 case .failure(let errror):
                     
                     print("Failed to search for stocks: \(errror.localizedDescription)")
