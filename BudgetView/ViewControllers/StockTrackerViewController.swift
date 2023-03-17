@@ -7,9 +7,12 @@
 
 import UIKit
 
-class StockTrackerViewController: UIViewController {
+class StockTrackerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-
+    
+    //MARK: Properties
+    var stock: [SearchServerModel] = []
+    var price: [QuoteServerModel] = []
     
     
     //MARK: - Outlets
@@ -22,9 +25,11 @@ class StockTrackerViewController: UIViewController {
         super.viewDidLoad()
 
         stockSearchBar.delegate = self
-//        stockTableView.dataSource = self
-//        stockTableView.delegate = self
+        stockTableView.dataSource = self
+        stockTableView.delegate = self
         fetchStockAndUpdateViews(stock: "Apple")
+        fetchStockPriceAndUpdateViews(stock: "AAPL")
+        
         
         hideKeyboard()
     }
@@ -61,18 +66,34 @@ class StockTrackerViewController: UIViewController {
         }
     }
     
+    func fetchStockPriceAndUpdateViews(stock: String) {
+        APICaller.shared.stockPrice(for: stock) { result in
+            DispatchQueue.main.async {
+                switch result {
+                    
+                case .success(let stockPrices):
+                    let stockPrice = stockPrices
+                    print(stockPrice)
+                    
+                case .failure(let error):
+                    print("Failed to search for stock price: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+        
     
     //MARK: - Table View Data Source
     
     //***Review with Chris**
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 
+    }
+
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return
+    }
     
     //MARK: - Methods
     func hideKeyboard() {
@@ -88,34 +109,25 @@ class StockTrackerViewController: UIViewController {
         view.endEditing(true)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
 extension StockTrackerViewController: UISearchBarDelegate {
     
+
+    ///runs when you search in text bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //text longer than 3 characters, api call, store results in array(stock array), pass item to the cell
+        
+        //        APICaller.shared.search(query: searchText) { result in
+        //            DispatchQueue.main.async {
+        //                switch result {
+        //                case .success(let stock):
+        //                    self.fetchStockAndUpdateViews(stock: stock, price: , tableView: <#T##UITableView#>)
+        //                }
+        //            }
+        //        }
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchText = searchBar.text else { return }
 
-//        APICaller.shared.search(query: searchText) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let stock):
-//                    self.fetchStockAndUpdateViews(stock: stock, price: , tableView: <#T##UITableView#>)
-//                }
-//            }
-//        }
-
-    }
 }

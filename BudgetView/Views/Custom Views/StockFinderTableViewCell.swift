@@ -9,6 +9,8 @@ import UIKit
 
 class StockFinderTableViewCell: UITableViewCell {
     
+    var stockModel: SearchServerModel?
+    
     //MARK: - Outlets
     @IBOutlet weak var symbolLabel: UILabel!
     @IBOutlet weak var companyNameLabel: UILabel!

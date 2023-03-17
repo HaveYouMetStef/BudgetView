@@ -51,11 +51,29 @@ class APICaller {
         for symbol: String,
         completion: @escaping (Result<QuoteServerModel, Error>) -> Void
     ) {
-        request(url: url(for: .stockPrice,
-                         queryParams: ["symbol": symbol]),
+        request(url: url(
+                        for: .stockPrice,
+                        queryParams: ["symbol": symbol]),
                 expecting: QuoteServerModel.self,
                 completion: completion)
     }
+    
+//    //Talk with Chris about the Task Groups
+//    func fetchSymbolAndPrice() async throws -> [Double] {
+//
+//        return try await withThrowingTaskGroup(of: Double) { group in
+//            var stockPrice: [Double] = []
+//
+//            group.addTask {
+//
+//            }
+//
+//
+//            return stockPrice
+//        }
+//
+//    }
+    
     
     //MARK: - Private
     

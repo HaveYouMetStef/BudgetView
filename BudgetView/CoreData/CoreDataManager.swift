@@ -17,6 +17,8 @@ class CoreDataManager {
     var income: [Transaction] = []
     var expense: [Transaction] = []
     var transactionItems: [Transaction] = []
+    var stockName: [SearchResult] = []
+    var stockPrice: [Quote] = []
     
     private lazy var fetchRequest: NSFetchRequest<WeeklySpend> = {
         let request = NSFetchRequest<WeeklySpend>(entityName: "WeeklySpend")
@@ -32,6 +34,18 @@ class CoreDataManager {
     
     private lazy var fetchExpense: NSFetchRequest<Transaction> = {
         let request = NSFetchRequest<Transaction>(entityName: "Transaction")
+        request.predicate = NSPredicate(value: true)
+        return request
+    }()
+    
+    private lazy var fetchStockName: NSFetchRequest<SearchResult> = {
+        let request = NSFetchRequest<SearchResult>(entityName: "SearchResult")
+        request.predicate = NSPredicate(value: true)
+        return request
+    }()
+    
+    private lazy var fetchStockPrice: NSFetchRequest<Quote> = {
+        let request = NSFetchRequest<Quote>(entityName: "Quote")
         request.predicate = NSPredicate(value: true)
         return request
     }()
@@ -198,6 +212,17 @@ class CoreDataManager {
         var calculatedBiweeklyExpenses = (totalMonthlyExpenses() * 12) / 26
         print(calculatedBiweeklyExpenses)
         return calculatedBiweeklyExpenses
+    }
+    
+    //MARK: CRUD Functions for API calls
+    
+    func createStockTracker(companyDescription: String, displaySymbol: String, symbol: String, type: String) {
+        let stockFinder = SearchResult(companyDescription: companyDescription, displaySymbol: displaySymbol, symbol: symbol, type: type)
+        CoreDataStack.saveContext()
+    }
+    
+    func requestStockPrice() {
+        
     }
 }
 
