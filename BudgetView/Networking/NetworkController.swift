@@ -57,23 +57,7 @@ class APICaller {
                 expecting: QuoteServerModel.self,
                 completion: completion)
     }
-    
-//    //Talk with Chris about the Task Groups
-//    func fetchSymbolAndPrice() async throws -> [Double] {
-//
-//        return try await withThrowingTaskGroup(of: Double) { group in
-//            var stockPrice: [Double] = []
-//
-//            group.addTask {
-//
-//            }
-//
-//
-//            return stockPrice
-//        }
-//
-//    }
-    
+        
     
     //MARK: - Private
     
