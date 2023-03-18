@@ -51,11 +51,14 @@ class APICaller {
         for symbol: String,
         completion: @escaping (Result<QuoteServerModel, Error>) -> Void
     ) {
+        print(symbol)
+        print(url(for: .stockPrice, queryParams: ["symbol" : symbol]))
         request(url: url(
                         for: .stockPrice,
                         queryParams: ["symbol": symbol]),
                 expecting: QuoteServerModel.self,
                 completion: completion)
+        
     }
         
     

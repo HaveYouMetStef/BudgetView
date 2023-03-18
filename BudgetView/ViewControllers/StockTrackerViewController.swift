@@ -99,22 +99,25 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
         let stock = self.stock[indexPath.row]
         let stockPrice = self.price[indexPath.row]
         
+        print("This is the stock name \(stock)")
+        print(" This is the stock price \(stockPrice)")
+        
         cell.configure(with: stock)
         cell.configure(with: stockPrice)
         
-//        if indexPath.row < self.price.count {
-//            let stockPrice = self.price[indexPath.row]
-//            cell.configure(with: stock)
-//        }
+        //        if indexPath.row < self.price.count {
+        //            let stockPrice = self.price[indexPath.row]
+        //            cell.configure(with: stock)
+        //        }
         
-//        if !stock.isEmpty {
-//            let stock = stock[indexPath.row]
-//            let stockPrice = price[indexPath.row]
-//            cell.configure(with: stock, stockPrice: stockPrice)
-//        }
-////        cell.configure(with: stock)
-//
-////        cell.stockModel = stock
+        //        if !stock.isEmpty {
+        //            let stock = stock[indexPath.row]
+        //            let stockPrice = price[indexPath.row]
+        //            cell.configure(with: stock, stockPrice: stockPrice)
+        //        }
+        ////        cell.configure(with: stock)
+        //
+        ////        cell.stockModel = stock
         
         return cell
     }
@@ -151,45 +154,55 @@ extension StockTrackerViewController: UISearchBarDelegate {
                     switch result {
                     case .success(let stock):
                         self.stock = stock.result
+                        self.price = Array(repeating: QuoteServerModel(current: 0.0), count: stock.result.count)
                         self.stockTableView.reloadData()
                         
-                        for stocks in stock.result {
+                        
+                        
+                        for (index,stocks) in stock.result.enumerated() {
+                            print("this is the index and stocks \(index), \(stocks)")
                             APICaller.shared.stockPrice(for: stocks.symbol) { result  in
                                 DispatchQueue.main.async {
                                     switch result {
                                     case .success(let stockPrice):
                                         let newPrice = QuoteServerModel(current: stockPrice.current)
                                         
-                                        if let index = self.stock.firstIndex(where: { $0.symbol == stocks.symbol })
-                                            self.price[index] = newPrice
-                                            self.stockTableView.reloadData()
+                                        self.price[index] = newPrice
+                                        self.stockTableView.reloadData()
+                                        
+//                                        if let index = self.stock.firstIndex(where: { $0.symbol == stocks.symbol }) {
+//                                            self.price[index] = newPrice
+//                                            self.stockTableView.reloadData()
+//                                        }
+                                    case .failure(let error):
+                                        print("Failed to search for stock name: \(error.localizedDescription)")
                                     }
                                 }
                             }
+                            
                         }
-                        
                     case .failure(let error):
-                        print("Failed to search for stock name: \(error.localizedDescription)")
+                        print(error.localizedDescription)
                     }
                 }
+//                APICaller.shared.stockPrice(for: searchText) { result in
+//                    DispatchQueue.main.async {
+//                        switch result {
+//                        case .success(let stockPrice):
+//                            let newPrice = QuoteServerModel(current: stockPrice.current)
+//                            self.price.append(newPrice)
+//                            self.stockTableView.reloadData()
+//
+//                        case .failure(let error):
+//                            print("Failed to search for stock price: \(error.localizedDescription)")
+//                        }
+//                    }
+//                }
+                
+                
             }
-            APICaller.shared.stockPrice(for: searchText) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let stockPrice):
-                        let newPrice = QuoteServerModel(current: stockPrice.current)
-                        self.price.append(newPrice)
-                        self.stockTableView.reloadData()
-                        
-                    case .failure(let error):
-                        print("Failed to search for stock price: \(error.localizedDescription)")
-                    }
-                }
-            }
-            
-            
         }
+        
+        
     }
-    
-    
 }
