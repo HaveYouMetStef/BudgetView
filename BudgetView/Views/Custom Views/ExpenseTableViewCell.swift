@@ -17,7 +17,17 @@ class ExpenseTableViewCell: UITableViewCell {
         expenseNameLabel.text = transaction.name
         guard let date = transaction.date else { return }
         expenseDateLabel.text = DateFormatter.transactionDate.string(from: transaction.date ?? Date())
-        expenseAmountLabel.text = "$" + String(format: "%.2f", transaction.amount)
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        
+        if let expenseAmountString = formatter.string(from: NSNumber(value: transaction.amount)) {
+            expenseAmountLabel.text = "$" + expenseAmountString
+        } else {
+            expenseAmountLabel.text = "$" + String(format: "%.2f", transaction.amount)
+        }
+//        expenseAmountLabel.text = "$" + String(format: "%.2f", transaction.amount)
     }
 
 }

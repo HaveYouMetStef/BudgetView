@@ -20,8 +20,16 @@ class IncomeTableViewCell: UITableViewCell {
             print("hello")
             return
         }
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
         dateLabel.text = DateFormatter.transactionDate.string(from: transaction.date ?? Date())
-        amountLabel.text = "$" + String(format: "%.2f", transaction.amount)
+        if let amountString = formatter.string(from: NSNumber(value: transaction.amount)) {
+            amountLabel.text = "$" + amountString
+        } else {
+            amountLabel.text = "$" + String(format: "%.2f", transaction.amount)
+        }
     }
     
 

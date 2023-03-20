@@ -39,9 +39,6 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
 
     // MARK: - Table view data source
 
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -72,7 +69,11 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
         footer.addSubview(titleLabel)
         
         amountTotal.textColor = .white
-        amountTotal.text = "$" + String(format: "%.2f", CoreDataManager.shared.totalIncome())
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        amountTotal.text = "$" + (formatter.string(from: NSNumber(value: CoreDataManager.shared.totalIncome())) ?? "0.00")
+//        amountTotal.text = "$" + String(format: "%.2f", CoreDataManager.shared.totalIncome())
         footer.addSubview(amountTotal)
         return footer
         

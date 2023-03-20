@@ -35,7 +35,7 @@ class APICaller {
                         request(
                             url: url(
                                 for: .search,
-                                queryParams: ["q" : "Apple"]
+                                queryParams: ["q" : "NFLX"]
                             ),
                             expecting: SearchResponse.self,
                             completion: completion

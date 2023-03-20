@@ -27,8 +27,8 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
         stockSearchBar.delegate = self
         stockTableView.dataSource = self
         stockTableView.delegate = self
-        fetchStockAndUpdateViews(stock: "Apple")
-        fetchStockPriceAndUpdateViews(stock: "AAPL")
+//        fetchStockAndUpdateViews(stock: "Apple")
+//        fetchStockPriceAndUpdateViews(stock: "AAPL")
         
         
         hideKeyboard()
@@ -102,8 +102,15 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
         print("This is the stock name \(stock)")
         print(" This is the stock price \(stockPrice)")
         
-        cell.configure(with: stock)
-        cell.configure(with: stockPrice)
+        if stockPrice.current > 0.0 {
+                    cell.configure(with: stock)
+                    cell.configure(with: stockPrice)
+        } else {
+            return UITableViewCell()
+        }
+        
+//        cell.configure(with: stock)
+//        cell.configure(with: stockPrice)
         
         //        if indexPath.row < self.price.count {
         //            let stockPrice = self.price[indexPath.row]
@@ -167,13 +174,15 @@ extension StockTrackerViewController: UISearchBarDelegate {
                                     case .success(let stockPrice):
                                         let newPrice = QuoteServerModel(current: stockPrice.current)
                                         
-                                        self.price[index] = newPrice
-                                        self.stockTableView.reloadData()
-                                        
-//                                        if let index = self.stock.firstIndex(where: { $0.symbol == stocks.symbol }) {
-//                                            self.price[index] = newPrice
-//                                            self.stockTableView.reloadData()
-//                                        }
+                                        if newPrice.current > 0.0 {
+                                            self.price[index] = newPrice
+                                            self.stockTableView.reloadData()
+                                            
+                                            //                                        if let index = self.stock.firstIndex(where: { $0.symbol == stocks.symbol }) {
+                                            //                                            self.price[index] = newPrice
+                                            //                                            self.stockTableView.reloadData()
+                                            //                                        }
+                                        }
                                     case .failure(let error):
                                         print("Failed to search for stock name: \(error.localizedDescription)")
                                     }
