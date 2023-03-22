@@ -11,7 +11,11 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
     
     
     //MARK: Properties
-    var stock: [SearchServerModel] = []
+    var stock: [SearchServerModel] = [] {
+        didSet {
+            self.stockTableView.reloadData()
+        }
+    }
     var price: [QuoteServerModel] = []
     
     
@@ -30,7 +34,7 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
 //        fetchStockAndUpdateViews(stock: "Apple")
 //        fetchStockPriceAndUpdateViews(stock: "AAPL")
         
-        
+        stockTableView.reloadData()
         hideKeyboard()
     }
     
@@ -92,22 +96,18 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "stockFinderCell", for: indexPath) as? StockFinderTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "stockFinderCell", for: indexPath) as? StockFinderTableViewCell
+        else {
             return UITableViewCell()
         }
         
         let stock = self.stock[indexPath.row]
-        let stockPrice = self.price[indexPath.row]
         
         print("This is the stock name \(stock)")
-        print(" This is the stock price \(stockPrice)")
         
-        if stockPrice.current > 0.0 {
+
                     cell.configure(with: stock)
-                    cell.configure(with: stockPrice)
-        } else {
-            return UITableViewCell()
-        }
+
         
 //        cell.configure(with: stock)
 //        cell.configure(with: stockPrice)
@@ -154,42 +154,39 @@ extension StockTrackerViewController: UISearchBarDelegate {
         //text longer than 3 characters, api call, store results in array(stock array), pass item to the cell
         
         guard let searchTerm = searchBar.text else { return }
-        
-        if searchTerm.count >= 3 {
+            if searchTerm.count >= 3 {
             APICaller.shared.search(query: searchText) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let stock):
                         self.stock = stock.result
-                        self.price = Array(repeating: QuoteServerModel(current: 0.0), count: stock.result.count)
-                        self.stockTableView.reloadData()
                         
                         
                         
-                        for (index,stocks) in stock.result.enumerated() {
-                            print("this is the index and stocks \(index), \(stocks)")
-                            APICaller.shared.stockPrice(for: stocks.symbol) { result  in
-                                DispatchQueue.main.async {
-                                    switch result {
-                                    case .success(let stockPrice):
-                                        let newPrice = QuoteServerModel(current: stockPrice.current)
-                                        
-                                        if newPrice.current > 0.0 {
-                                            self.price[index] = newPrice
-                                            self.stockTableView.reloadData()
-                                            
-                                            //                                        if let index = self.stock.firstIndex(where: { $0.symbol == stocks.symbol }) {
-                                            //                                            self.price[index] = newPrice
-                                            //                                            self.stockTableView.reloadData()
-                                            //                                        }
-                                        }
-                                    case .failure(let error):
-                                        print("Failed to search for stock name: \(error.localizedDescription)")
-                                    }
-                                }
-                            }
-                            
-                        }
+//                        for (index,stocks) in stock.result.enumerated() {
+//                            print("this is the index and stocks \(index), \(stocks)")
+//                            APICaller.shared.stockPrice(for: stocks.symbol) { result  in
+//                                DispatchQueue.main.async {
+//                                    switch result {
+//                                    case .success(let stockPrice):
+//                                        let newPrice = QuoteServerModel(current: stockPrice.current)
+//
+//                                        if newPrice.current > 0.0 {
+//                                            self.price[index] = newPrice
+//                                            self.stockTableView.reloadData()
+//
+//                                            //                                        if let index = self.stock.firstIndex(where: { $0.symbol == stocks.symbol }) {
+//                                            //                                            self.price[index] = newPrice
+//                                            //                                            self.stockTableView.reloadData()
+//                                            //                                        }
+//                                        }
+//                                    case .failure(let error):
+//                                        print("Failed to search for stock name: \(error.localizedDescription)")
+//                                    }
+//                                }
+//                            }
+//
+//                        }
                     case .failure(let error):
                         print(error.localizedDescription)
                     }

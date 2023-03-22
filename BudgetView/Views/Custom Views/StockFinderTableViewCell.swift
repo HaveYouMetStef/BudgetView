@@ -9,17 +9,6 @@ import UIKit
 
 class StockFinderTableViewCell: UITableViewCell {
     
-    var stockModel: SearchServerModel? {
-        didSet {
-            updateViews()
-        }
-    }
-    var stockPrice: QuoteServerModel? {
-        didSet {
-            updateViews()
-        }
-    }
-    
     
     //MARK: - Outlets
     @IBOutlet weak var symbolLabel: UILabel!
@@ -29,23 +18,25 @@ class StockFinderTableViewCell: UITableViewCell {
     func configure(with search: SearchServerModel) {
         symbolLabel.text = search.symbol
         companyNameLabel.text = search.description
+        
+        APICaller.shared.stockPrice(for: search.symbol) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let stockPrice):
+                    if stockPrice.current > 0.0 {
+                        self.configure(with: stockPrice)
+                    }
+                case .failure(let error):
+                    self.stockPriceLabel.text = "N/A"
+                }
+            }
+        }
     }
     
     func configure(with stockPrice: QuoteServerModel) {
                 stockPriceLabel.text = "$" + String(format: "%.2f", stockPrice.current)
     }
     
-    func updateViews() {
-        guard let stock = stockModel else { return }
-        guard let stockPrices = stockPrice else { return }
-        
-        symbolLabel.text = stock.displaySymbol
-        companyNameLabel.text = stock.description
-        stockPriceLabel.text = String(stockPrices.current)
-        
-        
-        
-    }
 
 
 

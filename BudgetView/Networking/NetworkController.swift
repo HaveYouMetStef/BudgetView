@@ -32,10 +32,12 @@ class APICaller {
     public func search(
         query: String,
         completion: @escaping (Result<SearchResponse, Error>) -> Void) {
+            
+            guard let safeSearch = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
                         request(
                             url: url(
                                 for: .search,
-                                queryParams: ["q" : "NFLX"]
+                                queryParams: ["q" : safeSearch]
                             ),
                             expecting: SearchResponse.self,
                             completion: completion
