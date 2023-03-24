@@ -39,26 +39,35 @@ class WeeklySpendViewController: UIViewController {
         }
     
     
+    // updated function to make sure that the app doesn't crash when you type in a random character or when it is nil
     func calculateWeeklySpend() -> Float {
-        var weeklyIncome = Float(weeklyIncomeTextField.text!)
-        var taxes = Float(taxesTextField.text!)
-        var expenses = Float(expensesTextField.text!)
-        var deductions = Float(deductionsTextField.text!)
-        var weeklySavings = Float(weeklySavingsTextField.text!)
-        var contributions = Float(contributionsTextField.text!)
-        
-        
-        let weeklySpendAmount = weeklyIncome! - taxes! - expenses! - deductions! - weeklySavings! - contributions!
-        
-        /*See if anything prints to the console
-         print(weeklyIncome, taxes, expenses, deductions, weeklySavings, contributions) */
-        
-        //See if the weekly spend is printed in the console
-        print(weeklySpendAmount)
-        
-        return weeklySpendAmount
-        
-    }
+        guard let weeklyIncome = Float(weeklyIncomeTextField.text ?? ""),
+           let taxes = Float(taxesTextField.text ?? ""),
+           let expenses = Float(expensesTextField.text ?? ""),
+           let deductions = Float(deductionsTextField.text ?? ""),
+           let weeklySavings = Float(weeklySavingsTextField.text ?? ""),
+           let contributions = Float(contributionsTextField.text ?? ""),
+           !weeklyIncome.isNaN,
+           !taxes.isNaN,
+           !expenses.isNaN,
+           !deductions.isNaN,
+           !weeklySavings.isNaN,
+           !contributions.isNaN else {
+            return 0
+        }
+            
+            
+            let weeklySpendAmount = weeklyIncome - taxes - expenses - deductions - weeklySavings - contributions
+            
+            /*See if anything prints to the console
+             print(weeklyIncome, taxes, expenses, deductions, weeklySavings, contributions) */
+            
+            //See if the weekly spend is printed in the console
+            print(weeklySpendAmount)
+            
+            return weeklySpendAmount
+            
+        }
     
     ///This will present a quick alert controller when the save bar button is tapped
     func presentAlert() {

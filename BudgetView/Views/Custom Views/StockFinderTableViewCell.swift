@@ -37,6 +37,13 @@ class StockFinderTableViewCell: UITableViewCell {
                 stockPriceLabel.text = "$" + String(format: "%.2f", stockPrice.current)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        symbolLabel.text = ""
+        companyNameLabel.text = ""
+//        stockPriceLabel.text = "N/A"
+    }
+    
 
 
 

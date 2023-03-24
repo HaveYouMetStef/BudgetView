@@ -17,7 +17,6 @@ class IncomeTableViewCell: UITableViewCell {
     func configure(with transaction: Transaction) {
         transactionLabel.text = transaction.name
         guard let date = transaction.date else {
-            print("hello")
             return
         }
         

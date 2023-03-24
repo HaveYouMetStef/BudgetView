@@ -16,6 +16,8 @@ class AddTransactionViewController: UIViewController {
     var selectDate = Date()
     var incomeItem: Transaction?
     var editTransaction: Transaction?
+    var addIncomeTransaction: Transaction?
+    var addExpenseTransaction: Transaction?
     
     //MARK: - Outlets
     @IBOutlet weak var incomeButton: UIButton!
@@ -27,9 +29,13 @@ class AddTransactionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.incomeButton.imageView?.image = UIImage(systemName: "square")
         
+        if isIncomeType {
+            updateForIncome()
+        } else {
+            updateForExpense()
+        }
+
         updateView()
         hideKeyboard()
     }
@@ -40,7 +46,9 @@ class AddTransactionViewController: UIViewController {
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let name = nameLabel.text,
               let type = isIncomeType ? "Income" : "Expense",
-              let amount = Float(amountLabel.text!) else { return }
+              let amount = Float(amountLabel.text!) else {
+            presentAlert()
+            return }
         
         print(type)
         
@@ -50,6 +58,7 @@ class AddTransactionViewController: UIViewController {
         } else {
             CoreDataManager.shared.createIncome(amount: amount, date: datePicker.date, name: name, type: type)
         }
+        
         
         
         self.navigationController?.popViewController(animated: true)
@@ -71,20 +80,22 @@ class AddTransactionViewController: UIViewController {
         if transaction.type == "Income" {
             updateForIncome()
             
+        } else {
+            updateForExpense()
         }
         amountLabel.text = String(transaction.amount)
         datePicker.date = transaction.date ?? Date()
     }
     
     func updateForIncome() {
-        self.expenseButton.imageView?.image = UIImage(systemName: "square")
-        self.incomeButton.imageView?.image = UIImage(systemName: "checkmark.square")
+        self.expenseButton.setImage(UIImage(systemName: "square"), for: .normal)
+        self.incomeButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
         self.isIncomeType = true
     }
     
     func updateForExpense() {
-        self.expenseButton.imageView?.image = UIImage(systemName: "checkmark.square")
-        self.incomeButton.imageView?.image = UIImage(systemName: "square")
+        self.incomeButton.setImage(UIImage(systemName: "square"), for: .normal)
+        self.expenseButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
         self.isIncomeType = false
     }
     
@@ -101,12 +112,33 @@ class AddTransactionViewController: UIViewController {
         view.endEditing(true)
     }
     
+    func presentAlert() {
+        
+        let wrongCharacterTyped = UIAlertController(title: "Wrong format!", message: "Type in a number", preferredStyle: .actionSheet)
+        let okayAction = UIAlertAction(title: "Okay", style: .default)
+        
+        [okayAction].forEach{wrongCharacterTyped.addAction($0)}
+        
+        present(wrongCharacterTyped, animated: true)
+    }
+    
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if isIncomeType {
+            updateForIncome()
+        } else {
+            updateForExpense()
+        }
+
+    }
+    
     
     
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//     In a storyboard-based application, you will often want to do a little preparation before navigation
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "toTransactionVC" {
 //            guard let indexPath = tableView.indexPathForSelectedRow,

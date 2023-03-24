@@ -9,7 +9,7 @@ import UIKit
 
 
 class ExpenseTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
-
+    
     //MARK: - Outlets
     @IBOutlet weak var expenseTableView: UITableView!
     @IBOutlet weak var weeklyExpensesButton: UIButton!
@@ -23,7 +23,7 @@ class ExpenseTableViewController: UIViewController, UITableViewDelegate,UITableV
         super.viewDidLoad()
         
         CoreDataManager.shared.requestExpense()
-
+        
         
         expenseTableView.delegate = self
         expenseTableView.dataSource = self
@@ -68,38 +68,34 @@ class ExpenseTableViewController: UIViewController, UITableViewDelegate,UITableV
     
     
     // MARK: - Table view data source
-
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         return CoreDataManager.shared.expense.count
     }
-
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath) as? ExpenseTableViewCell
         else { return UITableViewCell()}
-
+        
         let expense = CoreDataManager.shared.expense[indexPath.row]
         
         cell.configure(with: expense)
-
+        
         return cell
     }
     
-
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -112,25 +108,25 @@ class ExpenseTableViewController: UIViewController, UITableViewDelegate,UITableV
         }
     }
     
-
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toEditExpenseTransaction" {
@@ -140,11 +136,18 @@ class ExpenseTableViewController: UIViewController, UITableViewDelegate,UITableV
             let transactionToSend = CoreDataManager.shared.expense[indexPath.row]
             
             destinationVC.editTransaction = transactionToSend
+            destinationVC.isIncomeType = false
+        } else if segue.identifier == "toExpenseTransactionVC" {
+            guard let destinationVC = segue.destination as? AddTransactionViewController else {
+                return
+            }
+
+            destinationVC.isIncomeType = false
         }
         
-
+        
     }
     
-
+    
 }//End of Class
 
