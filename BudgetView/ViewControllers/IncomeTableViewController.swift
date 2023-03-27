@@ -24,6 +24,7 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
         incomeTableView.delegate = self
         incomeTableView.dataSource = self
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,31 +60,40 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = UIView()
+        
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 60))
         footer.backgroundColor = UIColor(red: 59/255, green: 159/255, blue: 111/255, alpha: 1.0)
-        let titleLabel = UILabel(frame: CGRect(x: 15, y: 10, width: tableView.frame.width - 30, height: 30))
-        let screenWidth = UIScreen.main.bounds.width
-        let amountTotal = UILabel(frame: CGRect(x: screenWidth - 80, y: 10, width: 120, height: 30))
+        let titleLabel = UILabel(frame: CGRect(x: 15, y: 10, width: tableView.frame.width - 30, height: 20))
+        titleLabel.textAlignment = .center
+
+        
+//        let screenWidth = UIScreen.main.bounds.width
+        let amountTotal = UILabel(frame: CGRect(x: 0, y: titleLabel.frame.maxY + 10, width: tableView.frame.width, height: 30))
         footer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         titleLabel.textColor = .white
         titleLabel.text = "Monthly Income"
-        //        titleLabel.font = UIFont(name: <#T##String#>, size: <#T##CGFloat#>)
-        footer.addSubview(titleLabel)
+        titleLabel.font = UIFont.systemFont(ofSize: 20)
+        amountTotal.font = UIFont.systemFont(ofSize: 20)
         
         amountTotal.textColor = .white
+        amountTotal.textAlignment = .center
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.minimumFractionDigits = 2
         amountTotal.text = "$" + (formatter.string(from: NSNumber(value: CoreDataManager.shared.totalIncome())) ?? "0.00")
-        //        amountTotal.text = "$" + String(format: "%.2f", CoreDataManager.shared.totalIncome())
+        footer.layer.cornerRadius = 10
+        
+        
+        footer.addSubview(titleLabel)
         footer.addSubview(amountTotal)
         return footer
         
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 60
+        return 70
     }
+    
     
     
     /*
@@ -109,25 +119,8 @@ class IncomeTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toEditIncomeTransaction" {
