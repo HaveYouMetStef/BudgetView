@@ -38,9 +38,15 @@ class WeeklySpendViewController: UIViewController {
         }
         }
     
+    func calculateWeeklySpend(weeklyIncome: Float, taxes: Float, expenses: Float, deductions: Float, weeklySavings: Float, contributions: Float) -> Float {
+        
+        return weeklyIncome - taxes - expenses - deductions - weeklySavings - contributions
+
+    }
+    
     
     // updated function to make sure that the app doesn't crash when you type in a random character or when it is nil
-    func calculateWeeklySpend() -> Float {
+    func calculateWeeklySpendWhenTapped() -> Float {
         guard let weeklyIncome = Float(weeklyIncomeTextField.text ?? ""),
            let taxes = Float(taxesTextField.text ?? ""),
            let expenses = Float(expensesTextField.text ?? ""),
@@ -57,13 +63,9 @@ class WeeklySpendViewController: UIViewController {
         }
             
             
-            let weeklySpendAmount = weeklyIncome - taxes - expenses - deductions - weeklySavings - contributions
+            let weeklySpendAmount = calculateWeeklySpend(weeklyIncome: weeklyIncome, taxes: taxes, expenses: expenses, deductions: deductions, weeklySavings: weeklySavings, contributions: contributions)
             
-            /*See if anything prints to the console
-             print(weeklyIncome, taxes, expenses, deductions, weeklySavings, contributions) */
-            
-            //See if the weekly spend is printed in the console
-            print(weeklySpendAmount)
+
             
             return weeklySpendAmount
             
@@ -114,7 +116,7 @@ class WeeklySpendViewController: UIViewController {
     
     
     @IBAction func calculateButtonTapped(_ sender: Any) {
-        var weeklySpendBudget = calculateWeeklySpend()
+        var weeklySpendBudget = calculateWeeklySpendWhenTapped()
         
         let vc = UIAlertController(title: "Calculated", message: "This is your weekly spending budget! $\(weeklySpendBudget)", preferredStyle: .actionSheet)
         let okayAction = UIAlertAction(title: "Okay", style: .default) { _ in

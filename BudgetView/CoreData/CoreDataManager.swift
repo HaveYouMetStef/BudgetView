@@ -102,20 +102,8 @@ class CoreDataManager {
        fetchedIncome = fetchedIncome.filter({$0.type == "Income"})
             income = fetchedIncome
         
-//        sectionOffTransactionItems()
     }
     
-//    func updateIncome(income: Transaction, amount: Float, date: Date, id: String, name: String, type: String) {
-//        
-//        income.amount = amount
-//        income.date = date
-//        income.id = id
-//        income.name = name
-//        income.type = type
-//        
-//        CoreDataStack.saveContext()
-//        
-//    }
     
     func updateIncome(income: Transaction, amount: Float, name: String, type: String, date: Date) {
         
@@ -137,15 +125,6 @@ class CoreDataManager {
         
     }
     
-//    func sectionOffTransactionItems() {
-//        for i in transactionItems {
-//          if i.type == "Income" {
-//                income.append(i)
-//            } else if i.type == "Expense" {
-//                expense.append(i)
-//            }
-//        }
-//    }
     
     //MARK: - CRUD Expense Transaction Functions
     

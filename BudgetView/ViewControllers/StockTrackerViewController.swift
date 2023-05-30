@@ -49,19 +49,6 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
                     let searchResult = searchResults
                     print(searchResult)
                     
-                    //                    APICaller.shared.search(query: stock.symbol) { result in
-                    //                        DispatchQueue.main.async {
-                    //                            switch result {
-                    //
-                    //                            case .success(let stockPrice):
-                    //                                let cell = tableView.dequeueReusableCell(withIdentifier: "stockFinderCell") as! StockFinderTableViewCell
-                    //                                cell.configure(with: searchResult, stockPrice: price)
-                    //                            case .failure(let error):
-                    //
-                    //                                print("Failed to fetch stock price: \(error.localizedDescription)")
-                    //                            }
-                    //                        }
-                    //                    }
                 case .failure(let errror):
                     
                     print("Failed to search for stocks: \(errror.localizedDescription)")
@@ -107,24 +94,6 @@ class StockTrackerViewController: UIViewController, UITableViewDataSource, UITab
         
 
                     cell.configure(with: stock)
-
-        
-//        cell.configure(with: stock)
-//        cell.configure(with: stockPrice)
-        
-        //        if indexPath.row < self.price.count {
-        //            let stockPrice = self.price[indexPath.row]
-        //            cell.configure(with: stock)
-        //        }
-        
-        //        if !stock.isEmpty {
-        //            let stock = stock[indexPath.row]
-        //            let stockPrice = price[indexPath.row]
-        //            cell.configure(with: stock, stockPrice: stockPrice)
-        //        }
-        ////        cell.configure(with: stock)
-        //
-        ////        cell.stockModel = stock
         
         return cell
     }
